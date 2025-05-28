@@ -7,7 +7,7 @@ from glob import glob
 if __name__ == '__main__':
     now = dt.now(UTC)
     current_files = glob('*.csv')
-    [remove(cf) for cf in current_files if (now - dt.strptime(cf, '%Y%m%d_%H%M%S.csv').replace(tzinfo=UTC)) > timedelta(days=15)]
+    [remove(cf) for cf in current_files if (now - dt.strptime(cf, '%Y%m%d_%H%M%S.csv').replace(tzinfo=UTC)) > timedelta(days=7)]
     gpsd.connect()
     filename = dt.now(UTC).strftime('%Y%m%d_%H%M%S.csv')
     with open(filename, 'w') as f:
