@@ -20,7 +20,7 @@ if __name__ == '__main__':
             lat, lon = packet.position()
             alt = packet.altitude()
             timestamp = dt.now(UTC).replace(microsecond=0).isoformat()
-            with open(filename, 'w') as f:
+            with open(filename, 'a') as f:
                 f.write(f'{timestamp},{lat},{lon},{alt}\n')
         except (gpsd.NoFixError, AttributeError):
             # No fix available yet
