@@ -4,10 +4,11 @@ After=syslog.target
 
 [Service]
 ExecStart=/home/stgardner4/micromamba/envs/gpsd/bin/python3 gps_logger.py
-WorkingDirectory=/home/stgardner4/breadcrumbs/
+WorkingDirectory=/home/stgardner4/breadcrumb-tracker/
 Restart=always
 User=stgardner4
 SyslogIdentifier=breadcrumb
+TimeoutSec=3600
 
 [Install]
 WantedBy=multi-user.target
