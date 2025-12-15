@@ -55,3 +55,5 @@ Make the following edits:
 16. Import the systemd service `sudo cp ./breadcrumb.service /etc/systemd/system/`
 17. Enable logging `sudo systemctl enable --now breadcrumb`
 18. Make sure a csv file is created in the "breadcrumb-tracker" directory after 5 seconds.
+
+Outputs a csv file for the current data (speed/RAM requirements). On each startup, all csv data is compressed into a parquet file to save on microSD card. Data is retained for 30 days.
