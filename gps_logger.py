@@ -28,8 +28,16 @@ def compress_old():
 
 
 if __name__ == '__main__':
-    compress_old()
+    gps_fix = False
     gpsd.connect()
+    while not gps_fix:
+        packet = gpsd.get_current()
+        if packet.mode >= 2:
+            gps_fix = True
+        else:
+            print(f"{dt.now(UTC).isoformat()}: Waiting for GPS fix...")
+            sleep(5)
+    compress_old()
     filename = None
     while True:
         sleep_time = 5 - (time() % 5)
@@ -44,5 +52,5 @@ if __name__ == '__main__':
             with open(filename, 'a') as f:
                 f.write(f'{timestamp},{lat},{lon},{alt}\n')
         except (gpsd.NoFixError, AttributeError):
-            # No fix available yet
-            print(f"{datetime.utcnow().isoformat()}: Waiting for GPS fix...")
+            # GPS fix lost or not available, wait for the next loop to try again
+            print(f"{dt.now(UTC).isoformat()}: Waiting for GPS fix...")
